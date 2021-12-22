@@ -1,5 +1,9 @@
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    KC_CTL_TAB = SAFE_RANGE,
+};
+
 enum ferris_layers {
     _BASE,
     _LOWER,
@@ -12,14 +16,12 @@ enum ferris_layers {
 #define KC_RS_SLSH RSFT_T(KC_SLSH)
 #define KC_BS_L1 LT(_LOWER, KC_BSPC)
 #define KC_SP_L2 LT(_RAISE, KC_SPC)
-#define KC_CTL_Q LCTL_T(KC_Q)
-#define KC_CTL_TAB LCTL_T(KC_TAB)
 #define KC_ALT_ENT LALT_T(KC_ENT)
 #define KC_CAD C(A(KC_DEL))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-        KC_CTL_Q,   KC_W,       KC_F,       KC_P,       KC_B,           KC_J,       KC_L,       KC_U,       KC_Y,       KC_SCLN,
+        KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,           KC_J,       KC_L,       KC_U,       KC_Y,       KC_SCLN,
         KC_A,       KC_R,       KC_S,       KC_T,       KC_G,           KC_M,       KC_N,       KC_E,       KC_I,       KC_O,
         KC_LS_Z,    KC_X,       KC_C,       KC_D,       KC_V,           KC_K,       KC_H,       KC_COMM,    KC_DOT,     KC_RS_SLSH,
                                             KC_CTL_TAB, KC_BS_L1,       KC_SP_L2,   KC_ALT_ENT
@@ -46,4 +48,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint32_t layer_state_set_user(uint32_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _BOTH);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static uint16_t ctrl_timer;
+    static bool other_pressed = false;
+
+    switch (keycode) {
+        // Tap for tab, hold for one-shot ctrl
+        case KC_CTL_TAB:
+            if (record->event.pressed) {
+                other_pressed = false;
+                ctrl_timer = timer_read();
+                register_code(KC_LCTL);
+            } else {
+                unregister_code(KC_LCTL);
+                if (timer_elapsed(ctrl_timer) < TAPPING_TERM) {
+                    tap_code(KC_TAB);
+                } else if (!other_pressed) {
+                    add_oneshot_mods(MOD_LCTL);
+                }
+            }
+            return false;
+        default:
+            if (record->event.pressed) {
+                other_pressed = true;
+            }
+            return true;
+    }
 }
