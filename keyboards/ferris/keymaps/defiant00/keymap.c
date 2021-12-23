@@ -27,15 +27,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_CTL_TAB, KC_BS_L1,       KC_SP_L2,   KC_ALT_ENT
     ),
     [_LOWER] = LAYOUT(
-        KC_ESC,     KC_TILDE,   KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,    KC_QUOT,    KC_LCBR,    KC_RCBR,    KC_PIPE,
+        KC_ESC,     KC_TILDE,   KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_UNDS,    KC_PLUS,    KC_LCBR,    KC_RCBR,    KC_PIPE,
         KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,        KC_CIRC,    KC_AMPR,    KC_ASTR,    KC_LPRN,    KC_RPRN,
-        KC_TRNS,    KC_TRNS,    KC_UNDS,    KC_PLUS,    KC_TRNS,        KC_TRNS,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,
+        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_DQT,     KC_TRNS,        KC_TRNS,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,
                                             KC_TRNS,    KC_TRNS,        KC_TRNS,    KC_TRNS  
     ),
     [_RAISE] = LAYOUT(
-        KC_DEL,     KC_GRAVE,   KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,    KC_DQT,     KC_LBRC,    KC_RBRC,    KC_BSLS,
+        KC_DEL,     KC_GRAVE,   KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_MINUS,   KC_EQUAL,   KC_LBRC,    KC_RBRC,    KC_BSLS,
         KC_1,       KC_2,       KC_3,       KC_4,       KC_5,           KC_6,       KC_7,       KC_8,       KC_9,       KC_0,
-        KC_LS_CAPS, KC_TRNS,    KC_MINUS,   KC_EQUAL,   KC_TRNS,        KC_TRNS,    KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,
+        KC_LS_CAPS, KC_TRNS,    KC_TRNS,    KC_QUOT,    KC_TRNS,        KC_TRNS,    KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,
                                             KC_TRNS,    KC_TRNS,        KC_TRNS,    KC_TRNS
     ),
     [_BOTH] = LAYOUT(
