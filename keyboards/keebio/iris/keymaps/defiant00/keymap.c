@@ -9,6 +9,7 @@ enum iris_layers {
 
 #define KC_LS_CAPS LSFT_T(KC_CAPS)
 #define KC_RS_ENT RSFT_T(KC_ENT)
+#define KC_LC_TAB LCTL_T(KC_TAB)
 #define KC_BS_L1 LT(_LOWER, KC_BSPC)
 #define KC_ENT_L2 LT(_RAISE, KC_ENT)
 
@@ -16,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
     KC_ESC,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                       KC_6,   KC_7,   KC_8,   KC_9,   KC_0,       KC_BSPC,
     KC_TAB,     KC_Q,   KC_W,   KC_F,   KC_P,   KC_B,                       KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,    KC_DEL,
-    KC_LCTL,    KC_A,   KC_R,   KC_S,   KC_T,   KC_G,                       KC_M,   KC_N,   KC_E,   KC_I,   KC_O,       KC_QUOT,
+    KC_LC_TAB,  KC_A,   KC_R,   KC_S,   KC_T,   KC_G,                       KC_M,   KC_N,   KC_E,   KC_I,   KC_O,       KC_QUOT,
     KC_LS_CAPS, KC_Z,   KC_X,   KC_C,   KC_D,   KC_V,   KC_HOME,    KC_END, KC_K,   KC_H,  KC_COMM, KC_DOT, KC_SLSH,    KC_RS_ENT,
                                        KC_LCTL,KC_BS_L1,KC_LGUI,    KC_SPC,KC_ENT_L2,KC_LALT
 ),
@@ -44,4 +45,103 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint32_t layer_state_set_user(uint32_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _BOTH);
+}
+
+// Colors (HSV)
+#define _BL {0, 0, 0}
+#define _FN {80, 255, 255}
+#define _NUM {100, 255, 255}
+#define _SYM {170, 255, 255}
+#define _NAV {220, 255, 255}
+#define _L1 {160, 255, 255}
+#define _L2 {100, 255, 255}
+#define _L3 {0, 255, 255}
+
+const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+    [1] = {
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _SYM,   _SYM,   _BL,    _BL,
+        _SYM,   _SYM,   _SYM,   _SYM,   _SYM,   _SYM,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,
+        _L1,    _L1,    _L1,    _L1,    _L1,    _L1,
+
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _SYM,   _SYM,   _SYM,   _SYM,   _BL,
+        _SYM,   _SYM,   _SYM,   _SYM,   _SYM,   _SYM,
+        _BL,    _SYM,   _SYM,   _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,
+        _L1,    _L1,    _L1,    _L1,    _L1,    _L1,
+    },
+    [2] = {
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _FN,    _FN,    _FN,    _FN,    _FN,    _FN,
+        _SYM,   _NUM,   _NUM,   _NUM,   _NUM,   _NUM,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _NAV,   _NAV,
+        _L2,    _L2,    _L2,    _L2,    _L2,    _L2,
+
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _FN,    _FN,    _FN,    _FN,    _FN,    _FN,
+        _SYM,   _NUM,   _NUM,   _NUM,   _NUM,   _NUM,
+        _BL,    _NAV,   _NAV,   _NAV,   _NAV,   _BL,
+        _BL,    _BL,    _BL,    _BL,
+        _L2,    _L2,    _L2,    _L2,    _L2,    _L2,
+    },
+    [3] = {
+    {0, 255, 255},  _BL,        _BL,        _BL,        _BL,        _BL,
+        _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
+        _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
+        _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
+        _BL,        _BL,        _BL,        _BL,
+        _L3,        _L3,        _L3,        _L3,        _L3,        _L3,
+
+        _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
+        _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
+        _BL,        _BL,  {0, 0, 64},{0, 0, 255}, {220, 255, 255},  _BL,
+        _BL,{80, 255, 255},{0, 255, 255},{160, 255, 255},_BL,      _BL,
+        _BL,        _BL,        _BL,        _BL,
+        _L3,        _L3,        _L3,        _L3,        _L3,        _L3,
+    },
+};
+
+void set_layer_color(int layer) {
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+        HSV hsv = {
+            .h = pgm_read_byte(&ledmap[layer][i][0]),
+            .s = pgm_read_byte(&ledmap[layer][i][1]),
+            .v = pgm_read_byte(&ledmap[layer][i][2]),
+        };
+        if (!hsv.h && !hsv.s && !hsv.v) {
+            rgb_matrix_set_color(i, 0, 0, 0);
+        } else {
+            RGB rgb = hsv_to_rgb(hsv);
+            float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+            rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+        }
+    }
+}
+
+#define CAPS_LED 23
+
+void rgb_matrix_indicators_user(void) {
+    // Layers
+    // int layer = biton32(layer_state);
+    // switch (layer) {
+    //     case 1:
+    //     case 2:
+    //     case 3:
+    //         set_layer_color(layer);
+    //         break;
+    //     default:
+    //         rgb_matrix_set_color_all(0, 0, 0);
+    //         break;
+    // }
+
+    // Caps lock
+    if (host_keyboard_led_state().caps_lock) {
+        HSV hsv = {16, 255, 64};
+        RGB rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(CAPS_LED, rgb.r, rgb.g, rgb.b);
+    }
 }
