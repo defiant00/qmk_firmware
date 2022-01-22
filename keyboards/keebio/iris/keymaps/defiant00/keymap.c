@@ -49,10 +49,10 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 // Colors (HSV)
 #define _BL {0, 0, 0}
-#define _FN {80, 255, 255}
-#define _NUM {100, 255, 255}
-#define _SYM {170, 255, 255}
-#define _NAV {220, 255, 255}
+#define _FN {80, 255, 128}
+#define _NUM {100, 255, 128}
+#define _SYM {170, 255, 128}
+#define _NAV {220, 255, 128}
 #define _L1 {160, 255, 255}
 #define _L2 {100, 255, 255}
 #define _L3 {0, 255, 255}
@@ -98,8 +98,8 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 
         _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
         _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
-        _BL,        _BL,  {0, 0, 64},{0, 0, 255}, {220, 255, 255},  _BL,
-        _BL,{80, 255, 255},{0, 255, 255},{160, 255, 255},_BL,      _BL,
+        _BL,        _BL,  {0, 0, 64},{0, 0, 255}, {80, 255, 255},  _BL,
+        _BL,{220, 255, 255},{0, 255, 255},{160, 255, 255},_BL,      _BL,
         _BL,        _BL,        _BL,        _BL,
         _L3,        _L3,        _L3,        _L3,        _L3,        _L3,
     },
@@ -126,17 +126,14 @@ void set_layer_color(int layer) {
 
 void rgb_matrix_indicators_user(void) {
     // Layers
-    // int layer = biton32(layer_state);
-    // switch (layer) {
-    //     case 1:
-    //     case 2:
-    //     case 3:
-    //         set_layer_color(layer);
-    //         break;
-    //     default:
-    //         rgb_matrix_set_color_all(0, 0, 0);
-    //         break;
-    // }
+    int layer = biton32(layer_state);
+    switch (layer) {
+        case 1:
+        case 2:
+        case 3:
+            set_layer_color(layer);
+            break;
+    }
 
     // Caps lock
     if (host_keyboard_led_state().caps_lock) {

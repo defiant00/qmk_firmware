@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 #define EE_HANDS
 
+#define SPLIT_LAYER_STATE_ENABLE
+
 #define RGB_MATRIX_KEYPRESSES
 #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
