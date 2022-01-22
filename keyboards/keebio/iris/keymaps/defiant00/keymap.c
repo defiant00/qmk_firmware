@@ -125,14 +125,10 @@ void set_layer_color(int layer) {
 #define CAPS_LED 23
 
 void rgb_matrix_indicators_user(void) {
-    // Layers
+    // Layer
     int layer = biton32(layer_state);
-    switch (layer) {
-        case 1:
-        case 2:
-        case 3:
-            set_layer_color(layer);
-            break;
+    if (layer) {
+        set_layer_color(layer);
     }
 
     // Caps lock
