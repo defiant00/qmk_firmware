@@ -17,8 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// #define USE_I2C
 #define EE_HANDS
+
+#define HOLD_ON_OTHER_KEY_PRESS
 
 #define SPLIT_LAYER_STATE_ENABLE
 
