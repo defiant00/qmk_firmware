@@ -1,7 +1,9 @@
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
-BOOTMAGIC_ENABLE = yes		# Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = no
 TAP_DANCE_ENABLE = no
-MOUSEKEY_ENABLE = no		# Mouse keys
-EXTRAKEY_ENABLE = no		# Audio control and System control
+EXTRAKEY_ENABLE = no
+UNICODE_ENABLE = no
+
+LTO_ENABLE = yes

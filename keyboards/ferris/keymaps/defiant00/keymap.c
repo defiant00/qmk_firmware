@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT(
         KC_ESC,     KC_TILDE,   _______,    _______,    _______,        KC_UNDS,    KC_PLUS,    KC_LCBR,    KC_RCBR,    KC_PIPE,
         KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,        KC_CIRC,    KC_AMPR,    KC_ASTR,    KC_LPRN,    KC_RPRN,
-        _______,    _______,    _______,    KC_DQT,     _______,        _______,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,
+        KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, KC_DQT,     _______,        _______,    KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,
                                             _______,    _______,        _______,    _______
     ),
     [_RAISE] = LAYOUT(
