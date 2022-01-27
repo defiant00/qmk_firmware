@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,    _______,
     _______,    _______,KC_LBRC,KC_RBRC,_______,_______,                   _______,KC_MINUS,KC_UNDS,KC_EQUAL,KC_PLUS,   _______,
     KC_TILDE,   KC_EXLM, KC_AT, KC_HASH,KC_DLR, KC_PERC,                    KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,    KC_PIPE,
-    _______,    _______,_______,_______,_______,_______,_______,    _______,_______,KC_LCBR,KC_RCBR,_______,_______,    _______,
+    _______,KC_MS_BTN3,_______,KC_MS_BTN2,KC_MS_BTN1,_______,_______,    _______,_______,KC_LCBR,KC_RCBR,_______,_______,    _______,
                                         _______,_______,_______,    _______,_______,_______
 ),
 [_RAISE] = LAYOUT(
@@ -62,7 +62,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
         _BL,    _BL,    _SYM,   _SYM,   _BL,    _BL,
         _SYM,   _SYM,   _SYM,   _SYM,   _SYM,   _SYM,
-        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _NAV,   _NAV,   _BL,    _NAV,   _BL,
         _BL,    _BL,    _BL,    _BL,
         _L1,    _L1,    _L1,    _L1,    _L1,    _L1,
 
