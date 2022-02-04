@@ -24,7 +24,7 @@ int16_t  delta_y = 0;
 #define SCROLL_THRESHOLD_X 60
 #define SCROLL_THRESHOLD_Y 60
 
-#define SCROLL_TIMEOUT 500
+#define SCROLL_TIMEOUT 1000
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 	static uint16_t scroll_timer;
