@@ -4,7 +4,8 @@ enum iris_layers {
     _BASE,
     _LOWER,
     _RAISE,
-    _BOTH
+    _BOTH,
+    _SCROLL,
 };
 
 #define KC_LS_CAPS LSFT_T(KC_CAPS)
@@ -27,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
     _______,    _______,    KC_LBRC,    KC_RBRC,    _______,    _______,                                _______,    KC_MINUS,   KC_UNDS,    KC_EQUAL,   KC_PLUS,    _______,
     KC_TILDE,   KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,                                KC_CIRC,    KC_AMPR,    KC_ASTR,    KC_LPRN,    KC_RPRN,    KC_PIPE,
-    _______,    _______,    KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, _______,    _______,        _______,    _______,    KC_LCBR,    KC_RCBR,    _______,    _______,    _______,
+    _______,    KC_CAPS,    KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, _______,    _______,        _______,    _______,    KC_LCBR,    KC_RCBR,    _______,    _______,    _______,
                                                     _______,    _______,    _______,        _______,    _______,    _______
 ),
 [_RAISE] = LAYOUT(
@@ -43,10 +44,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,    _______,    _______,    _______,    _______,                                _______,    RGB_TOG,    RGB_VAI,    RGB_VAD,    _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,    _______,        _______,    _______,    RGB_MOD,    RGB_HUI,    RGB_HUD,    _______,    _______,
                                                     _______,    _______,    _______,        _______,    _______,    _______
+),
+[_SCROLL] = LAYOUT(
+    _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
+    _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
+    _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
+    _______,    KC_CAPS,    KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, _______,    _______,        _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                                                    _______,    _______,    _______,        _______,    _______,    _______
 )};
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _BOTH);
+}
+
+bool led_update_user(led_t state) {
+    if (state.scroll_lock != layer_state_is(_SCROLL)) {
+        layer_invert(_SCROLL);
+    }
+    return true;
 }
 
 // Colors (HSV)
@@ -55,16 +70,18 @@ uint32_t layer_state_set_user(uint32_t state) {
 #define _NUM {100, 255, 128}
 #define _SYM {170, 255, 128}
 #define _NAV {220, 255, 128}
+#define _CAPS {16, 255, 128}
 #define _L1 {160, 255, 255}
 #define _L2 {100, 255, 255}
 #define _L3 {0, 255, 255}
+#define _L4 {190, 255, 255}
 
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
-    [1] = {
+    [_LOWER] = {
         _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
         _BL,    _BL,    _SYM,   _SYM,   _BL,    _BL,
         _SYM,   _SYM,   _SYM,   _SYM,   _SYM,   _SYM,
-        _BL,    _NAV,   _NAV,   _NAV,   _BL,    _BL,
+        _BL,    _NAV,   _NAV,   _NAV,   _CAPS,  _BL,
         _BL,    _BL,    _BL,    _BL,
         _L1,    _L1,    _L1,    _L1,    _L1,    _L1,
 
@@ -75,7 +92,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _BL,    _BL,    _BL,    _BL,
         _L1,    _L1,    _L1,    _L1,    _L1,    _L1,
     },
-    [2] = {
+    [_RAISE] = {
         _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
         _FN,    _FN,    _FN,    _FN,    _FN,    _FN,
         _SYM,   _NUM,   _NUM,   _NUM,   _NUM,   _NUM,
@@ -90,7 +107,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _BL,    _BL,    _BL,    _BL,
         _L2,    _L2,    _L2,    _L2,    _L2,    _L2,
     },
-    [3] = {
+    [_BOTH] = {
     {0, 255, 255},  _BL,        _BL,        _BL,        _BL,        _BL,
         _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
         _BL,        _BL,        _BL,        _BL,        _BL,        _BL,
@@ -105,6 +122,21 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _BL,        _BL,        _BL,        _BL,
         _L3,        _L3,        _L3,        _L3,        _L3,        _L3,
     },
+    [_SCROLL] = {
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _NAV,   _NAV,   _NAV,   _CAPS,  _BL,
+        _BL,    _BL,    _BL,    _BL,
+        _L4,    _L4,    _L4,    _L4,    _L4,    _L4,
+
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _BL,    _BL,    _BL,
+        _L4,    _L4,    _L4,    _L4,    _L4,    _L4,
+    }
 };
 
 void set_layer_color(int layer) {
