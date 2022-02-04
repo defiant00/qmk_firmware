@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
     _______,    _______,    KC_LBRC,    KC_RBRC,    _______,    _______,                                _______,    KC_MINUS,   KC_UNDS,    KC_EQUAL,   KC_PLUS,    _______,
     KC_TILDE,   KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,                                KC_CIRC,    KC_AMPR,    KC_ASTR,    KC_LPRN,    KC_RPRN,    KC_PIPE,
-    _______,    KC_CAPS,    KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, _______,    _______,        _______,    _______,    KC_LCBR,    KC_RCBR,    _______,    _______,    _______,
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,        _______,    _______,    KC_LCBR,    KC_RCBR,    _______,    _______,    _______,
                                                     _______,    _______,    _______,        _______,    _______,    _______
 ),
 [_RAISE] = LAYOUT(
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,                                _______,    _______,    _______,    _______,    _______,    _______,
-    _______,    KC_CAPS,    KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, _______,    _______,        _______,    _______,    _______,    _______,    _______,    _______,    _______,
+    _______,    KC_LS_CAPS, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, _______,    _______,        _______,    _______,    KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, KC_LS_CAPS, _______,
                                                     _______,    _______,    _______,        _______,    _______,    _______
 )};
 
@@ -71,6 +71,7 @@ bool led_update_user(led_t state) {
 #define _SYM {170, 255, 128}
 #define _NAV {220, 255, 128}
 #define _CAPS {16, 255, 128}
+#define _CAPS_DIM {16, 255, 64}
 #define _L1 {160, 255, 255}
 #define _L2 {100, 255, 255}
 #define _L3 {0, 255, 255}
@@ -81,7 +82,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
         _BL,    _BL,    _SYM,   _SYM,   _BL,    _BL,
         _SYM,   _SYM,   _SYM,   _SYM,   _SYM,   _SYM,
-        _BL,    _NAV,   _NAV,   _NAV,   _CAPS,  _BL,
+        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
         _BL,    _BL,    _BL,    _BL,
         _L1,    _L1,    _L1,    _L1,    _L1,    _L1,
 
@@ -133,7 +134,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
         _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
         _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
-        _BL,    _BL,    _BL,    _BL,    _BL,    _BL,
+        _BL,    _NAV,   _NAV,   _NAV,   _CAPS,  _BL,
         _BL,    _BL,    _BL,    _BL,
         _L4,    _L4,    _L4,    _L4,    _L4,    _L4,
     }
@@ -167,7 +168,7 @@ void rgb_matrix_indicators_user(void) {
 
     // Caps lock
     if (host_keyboard_led_state().caps_lock) {
-        HSV hsv = {16, 255, 64};
+        HSV hsv = _CAPS_DIM;
         RGB rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(CAPS_LED, rgb.r, rgb.g, rgb.b);
     }
