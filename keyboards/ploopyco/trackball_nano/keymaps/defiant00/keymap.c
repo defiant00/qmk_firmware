@@ -24,13 +24,29 @@ int16_t  delta_y = 0;
 #define SCROLL_THRESHOLD_X 60
 #define SCROLL_THRESHOLD_Y 60
 
-#define SCROLL_TIMEOUT 1000
+#define SCROLL_TIMEOUT 500
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 	static uint16_t scroll_timer;
 	static bool scrolling = false;
 
 	led_t leds = host_keyboard_led_state();
+
+	if (mouse_report.x || mouse_report.y) {
+		scroll_timer = timer_read();
+		if (!scrolling) {
+			scrolling = true;
+			if (!leds.scroll_lock) {
+				tap_code(KC_SCROLL_LOCK);
+			}
+		}
+	} else if (scrolling && timer_elapsed(scroll_timer) > SCROLL_TIMEOUT) {
+		scrolling = false;
+		if (leds.scroll_lock) {
+			tap_code(KC_SCROLL_LOCK);
+		}
+	}
+
 	if (leds.caps_lock && leds.num_lock) {
 		reset_keyboard();
 	} else if (leds.caps_lock) {
@@ -54,21 +70,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 			delta_y = 0;
 		}
     }
-
-	if (mouse_report.x || mouse_report.y) {
-		scroll_timer = timer_read();
-		if (!scrolling) {
-			scrolling = true;
-			if (!leds.scroll_lock) {
-				tap_code(KC_SCROLL_LOCK);
-			}
-		}
-	} else if (scrolling && timer_elapsed(scroll_timer) > SCROLL_TIMEOUT) {
-		scrolling = false;
-		if (leds.scroll_lock) {
-			tap_code(KC_SCROLL_LOCK);
-		}
-	}
 
 	return mouse_report;
 }
