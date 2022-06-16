@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_TAB_L3,  KC_BS_L4,       KC_SP_L1,   KC_ENT_L2
     ),
     [_NUM] = LAYOUT(
-        KC_GRAVE,   KC_7,       KC_8,       KC_9,       KC_BSLS,        QK_REBOOT,  _______,    _______,    _______,    _______,
+        KC_GRAVE,   KC_7,       KC_8,       KC_9,       KC_BSLS,        QK_BOOT,    _______,    _______,    _______,    _______,
         KC_SCLN,    KC_4,       KC_5,       KC_6,       KC_EQUAL,       _______,    KC_RSFT,    KC_RCTL,    KC_RALT,    KC_DELETE,
         KC_LBRC,    KC_1,       KC_2,       KC_3,       KC_RBRC,        _______,    _______,    _______,    _______,    _______,
                                             KC_MINUS,   KC_0,           KC_SPACE,   KC_ENTER
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_TAB,     KC_BSPC,        KC_SPACE,   KC_ENTER
     ),
     [_NAV] = LAYOUT(
-        _______,    _______,    _______,    _______,    QK_REBOOT,      _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    QK_BOOT,        _______,    KC_CAPS,    _______,    _______,    _______,
         KC_ESC,     KC_LALT,    KC_LCTL,    KC_LSFT,    _______,        CAPS_WORD,  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,
         _______,    _______,    _______,    _______,    _______,        KC_INSERT,  KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,
                                             KC_TAB,     KC_BSPC,        KC_LPRN,    KC_ENTER
