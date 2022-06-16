@@ -1,0 +1,10 @@
+# Bootloader selection
+BOOTLOADER = atmel-dfu
+
+BOOTMAGIC_ENABLE = no
+TAP_DANCE_ENABLE = no
+EXTRAKEY_ENABLE = no
+UNICODE_ENABLE = no
+CAPS_WORD_ENABLE = yes
+
+LTO_ENABLE = yes
